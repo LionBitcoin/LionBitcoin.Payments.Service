@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service", "LionBitcoin.Payments.Service\LionBitcoin.Payments.Service.csproj", "{9E27E1C7-6480-43C9-9C42-73ECDD316D75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Application", "LionBitcoin.Payments.Service.Application\LionBitcoin.Payments.Service.Application.csproj", "{7AB20B5E-3BBF-46C6-9AFC-D5DB2E2E62AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Persistence", "LionBitcoin.Payments.Service.Persistence\LionBitcoin.Payments.Service.Persistence.csproj", "{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Utils", "LionBitcoin.Payments.Service.Utils\LionBitcoin.Payments.Service.Utils.csproj", "{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Infrastructure", "LionBitcoin.Payments.Service.Infrastructure\LionBitcoin.Payments.Service.Infrastructure.csproj", "{30D65ED4-3626-452F-80FB-083C065E6504}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E27E1C7-6480-43C9-9C42-73ECDD316D75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E27E1C7-6480-43C9-9C42-73ECDD316D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E27E1C7-6480-43C9-9C42-73ECDD316D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E27E1C7-6480-43C9-9C42-73ECDD316D75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AB20B5E-3BBF-46C6-9AFC-D5DB2E2E62AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AB20B5E-3BBF-46C6-9AFC-D5DB2E2E62AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AB20B5E-3BBF-46C6-9AFC-D5DB2E2E62AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AB20B5E-3BBF-46C6-9AFC-D5DB2E2E62AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D65ED4-3626-452F-80FB-083C065E6504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D65ED4-3626-452F-80FB-083C065E6504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D65ED4-3626-452F-80FB-083C065E6504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D65ED4-3626-452F-80FB-083C065E6504}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LionBitcoin.Payments.Service.Application\LionBitcoin.Payments.Service.Application.csproj" />
+      <ProjectReference Include="..\LionBitcoin.Payments.Service.Infrastructure\LionBitcoin.Payments.Service.Infrastructure.csproj" />
+      <ProjectReference Include="..\LionBitcoin.Payments.Service.Persistence\LionBitcoin.Payments.Service.Persistence.csproj" />
+      <ProjectReference Include="..\LionBitcoin.Payments.Service.Utils\LionBitcoin.Payments.Service.Utils.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.Local.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>
