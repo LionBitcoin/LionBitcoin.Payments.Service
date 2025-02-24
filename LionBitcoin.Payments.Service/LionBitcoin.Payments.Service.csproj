@@ -10,7 +10,6 @@
       <ProjectReference Include="..\LionBitcoin.Payments.Service.Application\LionBitcoin.Payments.Service.Application.csproj" />
       <ProjectReference Include="..\LionBitcoin.Payments.Service.Infrastructure\LionBitcoin.Payments.Service.Infrastructure.csproj" />
       <ProjectReference Include="..\LionBitcoin.Payments.Service.Persistence\LionBitcoin.Payments.Service.Persistence.csproj" />
-      <ProjectReference Include="..\LionBitcoin.Payments.Service.Utils\LionBitcoin.Payments.Service.Utils.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,10 +21,6 @@
       <Content Update="appsettings.Local.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers\" />
     </ItemGroup>
 
 </Project>

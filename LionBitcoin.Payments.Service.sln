@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Persistence", "LionBitcoin.Payments.Service.Persistence\LionBitcoin.Payments.Service.Persistence.csproj", "{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Utils", "LionBitcoin.Payments.Service.Utils\LionBitcoin.Payments.Service.Utils.csproj", "{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Infrastructure", "LionBitcoin.Payments.Service.Infrastructure\LionBitcoin.Payments.Service.Infrastructure.csproj", "{30D65ED4-3626-452F-80FB-083C065E6504}"
 EndProject
 Global
@@ -28,10 +26,6 @@ Global
 		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4DCCEB7-FCD9-4374-B263-1585D654D5C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30D65ED4-3626-452F-80FB-083C065E6504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30D65ED4-3626-452F-80FB-083C065E6504}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D65ED4-3626-452F-80FB-083C065E6504}.Release|Any CPU.ActiveCfg = Release|Any CPU
