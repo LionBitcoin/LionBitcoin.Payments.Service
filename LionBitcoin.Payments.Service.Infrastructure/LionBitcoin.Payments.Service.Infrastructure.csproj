@@ -10,8 +10,4 @@
       <ProjectReference Include="..\LionBitcoin.Payments.Service.Application\LionBitcoin.Payments.Service.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Enums\" />
-    </ItemGroup>
-
 </Project>
