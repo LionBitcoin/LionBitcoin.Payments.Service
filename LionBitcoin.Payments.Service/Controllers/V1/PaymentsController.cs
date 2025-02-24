@@ -1,4 +1,7 @@
+using System;
 using System.Threading.Tasks;
+using LionBitcoin.Payments.Service.Application.Features.Payments.Commands.Deposit;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LionBitcoin.Payments.Service.Controllers.V1;
@@ -7,9 +10,16 @@ namespace LionBitcoin.Payments.Service.Controllers.V1;
 [Route("/api/v1/payments")]
 public class PaymentsController : ControllerBase
 {
-    [HttpPost("deposit")]
-    public async Task<IActionResult> Deposit()
+    private readonly IMediator _mediator;
+
+    public PaymentsController(IMediator mediator)
     {
-        return Ok();
+        _mediator = mediator;
+    }
+
+    [HttpPost("deposit")]
+    public async Task<IActionResult> Deposit(DepositCommand depositCommand)
+    {
+        return Ok(await _mediator.Send(depositCommand));
     }
 }
