@@ -10,5 +10,6 @@ namespace LionBitcoin.Payments.Service.Application.Domain.Enums;
 public enum Currency
 {
     Dollar = 1, // Smallest unit = cent
+
     Bitcoin = 2 // Smallest unit = satoshi
 }
