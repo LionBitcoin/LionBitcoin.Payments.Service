@@ -1,10 +1,12 @@
+using System.Threading;
 using System.Threading.Tasks;
+using LionBitcoin.Payments.Service.Application.Services.Models;
 
 namespace LionBitcoin.Payments.Service.Application.Services.Abstractions;
 
 public interface IWalletService
 {
-    string GenerateAddress();
+    GenerateAddressResponse GenerateAddress(GenerateAddressRequest request);
 
-    Task<string> GenerateAddressAsync();
+    Task<GenerateAddressResponse> GenerateAddressAsync(GenerateAddressRequest request, CancellationToken cancellationToken = default);
 }
