@@ -40,6 +40,22 @@ public class GenerateAddress_TestsIfAddressGenerationEvaluatesCorrectly : IEnume
             "bc1qvcwzfa826cre8zn8zvwtc4x4yuctda0n0l40mq", 
             "xpub6CYBRo48EXzvYKuSJd5ecRvf6LM92KhCurzew94yhNtNTq4bDyDvaFc6UdtJUrWQ3THJWrnbTpc9Fxigr2ojHE8FNuaMUnuG7QpHT6Z91HX"
         ];
+        yield return
+        [
+            Network.Test, 
+            9, 
+            AddressType.Change, 
+            "tb1qljztxl29kp5a465sfwgdm2c8ca8mfu5u2zaspk", 
+            "tpubDCMhyiTBF5afY68yPVyeM993n43fxedemQJgPuJWBjs7b5ASonDjQkUgkEwXNrifjUndjaJByWpygjoNKy1ZsUUgvyKMYBjnTya7MFba5rk"
+        ];
+        yield return
+        [
+            Network.Test, 
+            1567, 
+            AddressType.Receiving, 
+            "tb1q6nhq0kqfqu0e9zzyphsv2686ncng2hlwz7agrg", 
+            "tpubDCMhyiTBF5afY68yPVyeM993n43fxedemQJgPuJWBjs7b5ASonDjQkUgkEwXNrifjUndjaJByWpygjoNKy1ZsUUgvyKMYBjnTya7MFba5rk"
+        ];
         
     }
 
