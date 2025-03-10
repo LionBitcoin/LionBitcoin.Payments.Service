@@ -8,5 +8,5 @@ public class Customer : BaseEntity<int>
 
     public string DepositAddressDerivationPath { get; set; }
 
-    public string WithdrawalAddress { get; set; }
+    public string? WithdrawalAddress { get; set; }
 }

@@ -1,3 +1,7 @@
+using LionBitcoin.Payments.Service.Application.Repositories;
+using LionBitcoin.Payments.Service.Application.Repositories.Base;
+using LionBitcoin.Payments.Service.Persistence.Repositories;
+using LionBitcoin.Payments.Service.Persistence.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +15,8 @@ public static class PersistenceExtensions
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configs)
     {
         services.ConfigureDatabase(configs);
+        services.AddScoped<IUnitOfWork, UnitOfWork<PaymentsServiceDbContext>>();
+        services.AddScoped<IEventsRepository, EventsRepository>();
 
         return services;
     }
@@ -30,6 +36,7 @@ public static class PersistenceExtensions
         {
             options.UseNpgsql(connectionString);
             options.UseSnakeCaseNamingConvention();
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
         return services;
     }
