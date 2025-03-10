@@ -17,6 +17,7 @@ public static class PersistenceExtensions
         services.ConfigureDatabase(configs);
         services.AddScoped<IUnitOfWork, UnitOfWork<PaymentsServiceDbContext>>();
         services.AddScoped<IEventsRepository, EventsRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         return services;
     }
