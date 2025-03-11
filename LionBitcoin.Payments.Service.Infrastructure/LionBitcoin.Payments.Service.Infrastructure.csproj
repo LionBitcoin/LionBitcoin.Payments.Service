@@ -10,4 +10,9 @@
       <ProjectReference Include="..\LionBitcoin.Payments.Service.Application\LionBitcoin.Payments.Service.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="DotNetCore.CAP.PostgreSql" Version="8.3.3" />
+      <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.3" />
+    </ItemGroup>
+
 </Project>
