@@ -43,11 +43,6 @@ public class HdWalletService : IWalletService
         // Generate SegWit (Segregated Witness) standard address
         BitcoinAddress address = addressPubKey.GetAddress(ScriptPubKeyType.Segwit, btcNetwork);
 
-        return new GenerateAddressResponse(Address: address.ToString());
-    }
-
-    public Task<GenerateAddressResponse> GenerateAddressAsync(GenerateAddressRequest request, CancellationToken cancellationToken = default)
-    {
-        throw new System.NotImplementedException();
+        return new GenerateAddressResponse(Address: address.ToString(), derivationPath.ToString());
     }
 }

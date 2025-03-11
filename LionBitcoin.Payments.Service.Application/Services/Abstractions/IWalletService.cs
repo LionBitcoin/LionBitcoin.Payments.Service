@@ -7,6 +7,4 @@ namespace LionBitcoin.Payments.Service.Application.Services.Abstractions;
 public interface IWalletService
 {
     GenerateAddressResponse GenerateAddress(GenerateAddressRequest request);
-
-    Task<GenerateAddressResponse> GenerateAddressAsync(GenerateAddressRequest request, CancellationToken cancellationToken = default);
 }

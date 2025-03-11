@@ -11,7 +11,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         builder.HasKey(customer => customer.Id);
 
         builder.Property(customer => customer.DepositAddress)
-            .IsRequired(true)
+            .IsRequired(false)
             .HasMaxLength(256);
 
         builder.Property(customer => customer.WithdrawalAddress)
@@ -19,7 +19,7 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .HasMaxLength(256);
 
         builder.Property(customer => customer.DepositAddressDerivationPath)
-            .IsRequired(true)
+            .IsRequired(false)
             .HasMaxLength(100);
 
         builder.Property(customer => customer.CreateTimestamp)
