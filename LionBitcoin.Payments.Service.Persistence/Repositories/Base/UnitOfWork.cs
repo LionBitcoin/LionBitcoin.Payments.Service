@@ -23,7 +23,8 @@ public class UnitOfWork<TDbContext> : IUnitOfWork
 
     public async Task<IDbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
     {
-        IDbContextTransaction transaction = await _dbContext.Database.BeginTransactionAsync(_eventsRepository.CapPublisher, autoCommit: false, cancellationToken);
+        IDbContextTransaction transaction = await _dbContext.Database.BeginTransactionAsync(
+            IsolationLevel.ReadCommitted, _eventsRepository.CapPublisher, autoCommit: false, cancellationToken);
         return transaction.GetDbTransaction();
     }
 }
