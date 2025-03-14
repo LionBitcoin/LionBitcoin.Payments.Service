@@ -22,14 +22,14 @@ public class UnitOfWork<TDbContext> : IUnitOfWork
         _capPublisher = capPublisher;
     }
 
-    public async Task<IDbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
+    public Task<IDbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
     {
         IDbConnection connection = _dbContext.Database.GetDbConnection();
-        ICapTransaction transaction = await connection.BeginTransactionAsync(
+        ICapTransaction transaction = connection.BeginTransaction(
+            isolationLevel: IsolationLevel.ReadCommitted,
             publisher: _capPublisher, 
-            autoCommit: false,
-            cancellationToken: cancellationToken);
-        return EnsureTransactionIsNotNullAndReturn(transaction);
+            autoCommit: false);
+        return Task.FromResult(EnsureTransactionIsNotNullAndReturn(transaction));
     }
 
     private static IDbTransaction EnsureTransactionIsNotNullAndReturn(ICapTransaction transaction)
@@ -38,9 +38,9 @@ public class UnitOfWork<TDbContext> : IUnitOfWork
         return (IDbTransaction)transaction.DbTransaction;
     }
 
-    public async Task Publish<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : BaseEvent
+    public Task Publish<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : BaseEvent
     {
         EventsCache<TEvent> eventMetadata = EventsCache<TEvent>.GetCachedMetadata(); 
-        await _capPublisher.PublishAsync(eventMetadata.EventName, @event, cancellationToken: cancellationToken);
+        return _capPublisher.PublishAsync(eventMetadata.EventName, @event, cancellationToken: cancellationToken);
     }
 }
