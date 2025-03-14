@@ -18,20 +18,17 @@ public class RegisterCustomerCommandHandler : IRequestHandler<RegisterCustomerCo
     private readonly ICustomerRepository _customerRepository;
     private readonly ITimeProviderService _timeProvider;
     private readonly IWalletService _walletService;
-    private readonly IEventsRepository _eventsRepository;
 
     public RegisterCustomerCommandHandler(
         IUnitOfWork unitOfWork, 
         ICustomerRepository customerRepository,
         ITimeProviderService timeProvider,
-        IWalletService walletService,
-        IEventsRepository eventsRepository)
+        IWalletService walletService)
     {
         _unitOfWork = unitOfWork;
         _customerRepository = customerRepository;
         _timeProvider = timeProvider;
         _walletService = walletService;
-        _eventsRepository = eventsRepository;
     }
 
     public async Task<RegisterCustomerResponse> Handle(RegisterCustomerCommand request, CancellationToken cancellationToken)
@@ -44,7 +41,7 @@ public class RegisterCustomerCommandHandler : IRequestHandler<RegisterCustomerCo
         GenerateAddressResponse generateAddressResponse = _walletService.GenerateAddress(new GenerateAddressRequest(customerId, AddressType.Receiving));
 
         await UpdateCustomerDepositInfo(customer, generateAddressResponse, cancellationToken);
-        await _eventsRepository.Publish(new CustomerCreatedEvent() // TODO: check that isolation level works well, because there was a problem
+        await _unitOfWork.Publish(new CustomerCreatedEvent() // TODO: check that isolation level works well, because there was a problem
         {
             OriginalProducer = nameof(RegisterCustomerCommandHandler),
             Customer = customer
