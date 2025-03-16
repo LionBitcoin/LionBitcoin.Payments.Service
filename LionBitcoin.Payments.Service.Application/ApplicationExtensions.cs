@@ -18,8 +18,7 @@ public static class ApplicationExtensions
         });
 
         services.AddSingleton<IWalletService, HdWalletService>();
-        services.AddSingleton<ITimeProviderService, LionBitcoinTimeProvider>();
-        
+        services.AddSingleton<ITimeProviderService, LionBitcoinTimeProviderService>();
         services.GetAndConfigure<PaymentServiceSettings>("PaymentServiceSettings");
         return services;
     }

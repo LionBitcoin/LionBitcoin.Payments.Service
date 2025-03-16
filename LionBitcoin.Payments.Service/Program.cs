@@ -1,4 +1,5 @@
 using LionBitcoin.Payments.Service.Application;
+using LionBitcoin.Payments.Service.Infrastructure;
 using LionBitcoin.Payments.Service.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,8 @@ builder.Services.AddOpenApi("docs");
 
 builder.Services
     .AddApplication(builder.Configuration)
-    .AddPersistence(builder.Configuration);
+    .AddPersistence(builder.Configuration)
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
