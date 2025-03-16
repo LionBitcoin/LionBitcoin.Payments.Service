@@ -24,13 +24,11 @@ public class HdWalletServiceTests
     public void GenerateAddress_TestsIfAddressGenerationEvaluatesCorrectly(Network network, long addressIndex, AddressType addressType, string expectedAddress, string xPub)
     {
         // Arrange
-        #region Arrange
         _paymentServiceSettingsOptions.Value.Returns(new PaymentServiceSettings()
         {
             AccountExtendedPublicKey = xPub,
             Network = network
         });
-        #endregion
 
         // Act
         GenerateAddressResponse evaluatedAddressResponse = _hdWalletService.GenerateAddress(new GenerateAddressRequest(addressIndex, addressType));

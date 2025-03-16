@@ -11,5 +11,5 @@ public class PaymentServiceSettings
     public string AccountExtendedPublicKey { get; set; }
 
     [Required]
-    public long ThresholdBlockIndex { get; set; }
+    public long DefaultThresholdBlockIndex { get; set; }
 }

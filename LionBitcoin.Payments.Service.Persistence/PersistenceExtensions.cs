@@ -1,5 +1,8 @@
+using LionBitcoin.Payments.Service.Application.Domain.Entities;
 using LionBitcoin.Payments.Service.Application.Repositories;
 using LionBitcoin.Payments.Service.Application.Repositories.Base;
+using LionBitcoin.Payments.Service.Application.Services.Abstractions;
+using LionBitcoin.Payments.Service.Application.Shared;
 using LionBitcoin.Payments.Service.Persistence.Repositories;
 using LionBitcoin.Payments.Service.Persistence.Repositories.Base;
 using LionBitcoin.Payments.Service.Persistence.Repositories.Configs;
@@ -9,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
 using LionBitcoin.Payments.Service.Common.Misc;
+using Microsoft.Extensions.Options;
 
 namespace LionBitcoin.Payments.Service.Persistence;
 
@@ -19,6 +23,7 @@ public static class PersistenceExtensions
         services.ConfigureDatabase(configs);
         services.AddScoped<IUnitOfWork, UnitOfWork<PaymentsServiceDbContext>>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IBlockExplorerMetadataRepository, BlockExplorerMetadataRepository>();
         services.AddCap(configs);
 
         return services;
@@ -29,7 +34,29 @@ public static class PersistenceExtensions
         using IServiceScope scope = host.Services.CreateScope();
         DbContext context = scope.ServiceProvider.GetRequiredService<PaymentsServiceDbContext>();
         context.Database.Migrate();
+        SeedData(scope);
         return host;
+    }
+
+    private static void SeedData(IServiceScope scope)
+    {
+        PaymentServiceSettings settings = scope.ServiceProvider.GetRequiredService<IOptions<PaymentServiceSettings>>().Value;
+        IBlockExplorerMetadataRepository metadataRepository =
+            scope.ServiceProvider.GetRequiredService<IBlockExplorerMetadataRepository>();
+        ITimeProviderService timeProviderService = scope.ServiceProvider.GetRequiredService<ITimeProviderService>();
+        SeedBlockExplorerMetadata(metadataRepository, settings, timeProviderService);
+    }
+
+    private static void SeedBlockExplorerMetadata(IBlockExplorerMetadataRepository metadataRepository,
+        PaymentServiceSettings settings, ITimeProviderService timeProviderService)
+    {
+        int? thresholdBlockIndexMetadataId = metadataRepository.CreateIfNotExists(new BlockExplorerMetadata()
+        {
+            Key = "BlockIndexThreshold",
+            Value = settings.DefaultThresholdBlockIndex.ToString(),
+            CreateTimestamp = timeProviderService.GetUtcNow,
+            UpdateTimestamp = timeProviderService.GetUtcNow,
+        }).Result;
     }
 
     private static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configs)

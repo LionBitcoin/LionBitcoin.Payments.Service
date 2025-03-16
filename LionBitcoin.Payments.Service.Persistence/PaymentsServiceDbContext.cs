@@ -8,6 +8,8 @@ public class PaymentsServiceDbContext : DbContext
 {
     public DbSet<Customer> Customers { get; set; }
 
+    public DbSet<BlockExplorerMetadata> BlockExplorerMetadata { get; set; }
+
     public PaymentsServiceDbContext(DbContextOptions<PaymentsServiceDbContext> options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
