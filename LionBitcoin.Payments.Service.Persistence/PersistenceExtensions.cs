@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
+using LionBitcoin.Payments.Service.Common.Misc;
 
 namespace LionBitcoin.Payments.Service.Persistence;
 
@@ -52,7 +53,8 @@ public static class PersistenceExtensions
 
     private static IServiceCollection AddCap(this IServiceCollection services, IConfiguration configuration)
     {
-        EventsRabbitMqConfig eventsRabbitMqConfig = ConfigureAndGetEventsRabbitMqConfig(services, configuration);
+        EventsRabbitMqConfig eventsRabbitMqConfig =
+            services.GetAndConfigure<EventsRabbitMqConfig>("EventsRabbitMqSettings");
 
         string connectionString = GetConnectionString(configuration);
         services.AddCap(options =>
@@ -69,18 +71,5 @@ public static class PersistenceExtensions
         });
 
         return services;
-    }
-
-    private static EventsRabbitMqConfig ConfigureAndGetEventsRabbitMqConfig(IServiceCollection services, IConfiguration configuration)
-    {
-        IConfigurationSection section = configuration.GetSection("EventsRabbitMqSettings");
-        services.AddOptions<EventsRabbitMqConfig>()
-            .Bind(section)
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
-        EventsRabbitMqConfig config = new EventsRabbitMqConfig();
-        section.Bind(config);
-        return config;
     }
 }

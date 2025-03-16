@@ -2,6 +2,7 @@ using System.Reflection;
 using LionBitcoin.Payments.Service.Application.Services;
 using LionBitcoin.Payments.Service.Application.Services.Abstractions;
 using LionBitcoin.Payments.Service.Application.Shared;
+using LionBitcoin.Payments.Service.Common.Misc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +20,7 @@ public static class ApplicationExtensions
         services.AddSingleton<IWalletService, HdWalletService>();
         services.AddSingleton<ITimeProviderService, LionBitcoinTimeProvider>();
         
-        services.Configure<PaymentServiceSettings>(configuration.GetSection("PaymentServiceSettings"));
+        services.GetAndConfigure<PaymentServiceSettings>("PaymentServiceSettings");
         return services;
     }
 }

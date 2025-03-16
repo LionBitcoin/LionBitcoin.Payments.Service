@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LionBitcoin.Payments.Service.Application\LionBitcoin.Payments.Service.Application.csproj" />
+      <ProjectReference Include="..\LionBitcoin.Payments.Service.Persistence\LionBitcoin.Payments.Service.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

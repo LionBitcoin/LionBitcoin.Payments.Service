@@ -1,4 +1,3 @@
-using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using LionBitcoin.Payments.Service.Application.Domain.Entities;
@@ -33,7 +32,7 @@ public class RegisterCustomerCommandHandler : IRequestHandler<RegisterCustomerCo
 
     public async Task<RegisterCustomerResponse> Handle(RegisterCustomerCommand request, CancellationToken cancellationToken)
     {
-        using IDbTransaction transaction = await _unitOfWork.BeginTransactionAsync(cancellationToken);
+        using IUnitOfWorkTransaction transaction = await _unitOfWork.BeginTransactionAsync(cancellationToken);
         
         Customer customer = InitiateNewCustomer(request);
         int customerId = await _customerRepository.Insert(customer, cancellationToken);
@@ -41,13 +40,13 @@ public class RegisterCustomerCommandHandler : IRequestHandler<RegisterCustomerCo
         GenerateAddressResponse generateAddressResponse = _walletService.GenerateAddress(new GenerateAddressRequest(customerId, AddressType.Receiving));
 
         await UpdateCustomerDepositInfo(customer, generateAddressResponse, cancellationToken);
-        await _unitOfWork.Publish(new CustomerCreatedEvent() // TODO: check that isolation level works well, because there was a problem
+        await transaction.Publish(new CustomerCreatedEvent() // TODO: check that isolation level works well, because there was a problem
         {
             OriginalProducer = nameof(RegisterCustomerCommandHandler),
             Customer = customer
         }, cancellationToken);
 
-        transaction.Commit();
+        await transaction.CommitAsync(cancellationToken);
 
         return new RegisterCustomerResponse()
         {

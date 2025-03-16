@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DDA61726
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Application.Tests", "LionBitcoin.Payments.Service.Application.Tests\LionBitcoin.Payments.Service.Application.Tests.csproj", "{BFD9B14B-6F99-4CAC-8B92-9DC1F8AE4081}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionBitcoin.Payments.Service.Common.Misc", "LionBitcoin.Payments.Service.Common.Misc\LionBitcoin.Payments.Service.Common.Misc.csproj", "{932A4906-F68C-428A-A298-D0376A41CB04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{BFD9B14B-6F99-4CAC-8B92-9DC1F8AE4081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFD9B14B-6F99-4CAC-8B92-9DC1F8AE4081}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFD9B14B-6F99-4CAC-8B92-9DC1F8AE4081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{932A4906-F68C-428A-A298-D0376A41CB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932A4906-F68C-428A-A298-D0376A41CB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932A4906-F68C-428A-A298-D0376A41CB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932A4906-F68C-428A-A298-D0376A41CB04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7AB20B5E-3BBF-46C6-9AFC-D5DB2E2E62AD} = {7FC5859E-AF95-4EC9-9A51-1F6069C94D8B}
@@ -47,5 +53,6 @@ Global
 		{30D65ED4-3626-452F-80FB-083C065E6504} = {7FC5859E-AF95-4EC9-9A51-1F6069C94D8B}
 		{FEACBD94-0224-4CD1-8F9C-EE90FBE8BF8D} = {7FC5859E-AF95-4EC9-9A51-1F6069C94D8B}
 		{BFD9B14B-6F99-4CAC-8B92-9DC1F8AE4081} = {DDA61726-D1F9-459E-BD7C-8748DF190DA7}
+		{932A4906-F68C-428A-A298-D0376A41CB04} = {7FC5859E-AF95-4EC9-9A51-1F6069C94D8B}
 	EndGlobalSection
 EndGlobal

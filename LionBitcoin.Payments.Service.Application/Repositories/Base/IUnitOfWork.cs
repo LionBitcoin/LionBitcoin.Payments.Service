@@ -7,7 +7,5 @@ namespace LionBitcoin.Payments.Service.Application.Repositories.Base;
 
 public interface IUnitOfWork
 {
-    Task<IDbTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default);
-
-    Task Publish<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : BaseEvent;
+    Task<IUnitOfWorkTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default);
 }
