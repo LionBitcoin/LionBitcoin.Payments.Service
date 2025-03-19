@@ -39,7 +39,6 @@ public class BitcoinTransactionOccuredHandler : IRequestHandler<BitcoinTransacti
 
         foreach (Output output in transactionInfo.Outputs)
         {
-            output.Address = "bc1q5dhfay6ud5ndj6ccd5myj7x9zmvadnf9y56ew6";//TODO: Delete
             await TryUpdateCustomersBalance(cancellationToken, output);
         }
 
