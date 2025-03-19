@@ -1,4 +1,3 @@
-using System;
 using LionBitcoin.Payments.Service.Application.Domain.Entities;
 using LionBitcoin.Payments.Service.Application.Domain.Enums;
 using LionBitcoin.Payments.Service.Application.Repositories;
@@ -84,6 +83,8 @@ public static class PersistenceExtensions
     {
         EventsRabbitMqConfig eventsRabbitMqConfig =
             services.GetAndConfigure<EventsRabbitMqConfig>("EventsRabbitMqSettings");
+        EventsConfig eventsConfig =
+            services.GetAndConfigure<EventsConfig>("EventsConfig");
 
         string connectionString = GetConnectionString(configuration);
         services.AddCap(options =>
@@ -97,6 +98,11 @@ public static class PersistenceExtensions
                 rabbitOptions.UserName = eventsRabbitMqConfig.UserName;
                 rabbitOptions.Password = eventsRabbitMqConfig.Password;
             });
+
+            options.FailedRetryCount = eventsConfig.FailedRetryCount;
+            options.FailedRetryInterval = eventsConfig.FailedRetryIntervalInSeconds;
+            options.SucceedMessageExpiredAfter = eventsConfig.SucceedMessageExpiredAfterInSeconds;
+            options.FailedMessageExpiredAfter = eventsConfig.FailedMessageExpiredAfterInSeconds;
         });
 
         return services;
