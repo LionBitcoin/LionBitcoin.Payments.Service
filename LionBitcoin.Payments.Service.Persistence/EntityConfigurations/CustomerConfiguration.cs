@@ -10,6 +10,9 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.HasKey(customer => customer.Id);
 
+        builder.HasIndex(customer => customer.DepositAddress)
+            .IsUnique();
+
         builder.Property(customer => customer.DepositAddress)
             .IsRequired(false)
             .HasMaxLength(256);
@@ -26,6 +29,9 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .IsRequired(true);
 
         builder.Property(customer => customer.UpdateTimestamp)
+            .IsRequired(true);
+
+        builder.Property(customer => customer.Balance)
             .IsRequired(true);
     }
 }

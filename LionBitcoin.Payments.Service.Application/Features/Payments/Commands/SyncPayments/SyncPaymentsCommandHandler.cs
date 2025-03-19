@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using LionBitcoin.Payments.Service.Application.Domain.Entities;
 using LionBitcoin.Payments.Service.Application.Domain.Enums;
 using LionBitcoin.Payments.Service.Application.Domain.Events;
 using LionBitcoin.Payments.Service.Application.Domain.Exceptions.Base;
@@ -67,16 +68,16 @@ public class SyncPaymentsCommandHandler : IRequestHandler<SyncPaymentsCommand, S
 
     private async Task<long> GetCurrentBlockIndexToCheck(CancellationToken cancellationToken)
     {
-        string? currentBlockIndexToCheck = await _blockExplorerMetadataRepository.GetMetadataByKey(
+        BlockExplorerMetadata? currentBlockIndexMetadata = await _blockExplorerMetadataRepository.GetMetadataByKey(
             nameof(BlockExplorerMetadataCode.BlockIndexThreshold), cancellationToken);
 
-        if (currentBlockIndexToCheck == null)
+        if (currentBlockIndexMetadata == null)
         {
             _logger.LogError("Block explorer metadata not found. requested key: {key}", nameof(BlockExplorerMetadataCode.BlockIndexThreshold));
 
             throw new PaymentServiceException(ExceptionType.GeneralError);
         }
 
-        return long.Parse(currentBlockIndexToCheck);
+        return long.Parse(currentBlockIndexMetadata.Value);
     }
 }

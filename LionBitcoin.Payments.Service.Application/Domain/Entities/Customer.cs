@@ -9,4 +9,9 @@ public class Customer : BaseEntity<int>
     public string? DepositAddressDerivationPath { get; set; }
 
     public string? WithdrawalAddress { get; set; }
+
+    /// <summary>
+    /// Balance is represented in satoshis
+    /// </summary>
+    public long Balance { get; set; }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using LionBitcoin.Payments.Service.Application.Domain.Entities;
@@ -11,7 +12,10 @@ public interface IBlockExplorerMetadataRepository : IBaseRepository<BlockExplore
 
     Task<int?> CreateIfNotExists(BlockExplorerMetadata metadata, CancellationToken cancellationToken = default);
 
-    Task<string?> GetMetadataByKey(string key, CancellationToken cancellationToken = default);
+    Task<BlockExplorerMetadata?> GetMetadataByKey(string key, CancellationToken cancellationToken = default);
 
     Task UpdateMetadataByKey(string key, string value, CancellationToken cancellationToken = default);
+
+    Task<int?> CreateOrUpdateOnlyIf(BlockExplorerMetadata metadata, Predicate<BlockExplorerMetadata> evaluatesTrue,
+        CancellationToken cancellationToken = default);
 }

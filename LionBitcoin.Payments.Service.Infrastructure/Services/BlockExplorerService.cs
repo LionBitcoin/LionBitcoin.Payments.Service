@@ -2,6 +2,8 @@ using System.Text.Json;
 using LionBitcoin.Payments.Service.Application.Domain.Enums;
 using LionBitcoin.Payments.Service.Application.Domain.Exceptions.Base;
 using LionBitcoin.Payments.Service.Application.Services.Abstractions;
+using LionBitcoin.Payments.Service.Application.Services.Models;
+using LionBitcoin.Payments.Service.Infrastructure.Services.Models;
 using LionBitcoin.Payments.Service.Infrastructure.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -36,6 +38,43 @@ public class BlockExplorerService : IBlockExplorerService
         return transactionIds;
     }
 
+    public async Task<TransactionInfo> GetTransactionInfo(string transactionId, CancellationToken cancellationToken = default)
+    {
+        string url = $"/api/tx/{transactionId}";
+
+        using HttpClient client = _httpClientFactory.CreateClient(_mempoolSpaceSettings.ClientName);
+        using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+        using HttpResponseMessage response = await client.SendAsync(request, cancellationToken);
+
+        response.EnsureSuccessStatusCode();
+
+        TxInfoFromMempoolSpace txInfo = await GetTxInfo(cancellationToken, response);
+
+        return new TransactionInfo()
+        {
+            Outputs = txInfo.Outputs.Select(vout => new Output()
+            {
+                Address = vout.Address,
+                Amount = vout.Amount,
+            })
+        };
+    }
+
+    private async Task<TxInfoFromMempoolSpace> GetTxInfo(CancellationToken cancellationToken, HttpResponseMessage response)
+    {
+        string content = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        TxInfoFromMempoolSpace? txInfo = JsonSerializer.Deserialize<TxInfoFromMempoolSpace>(content);
+        if (txInfo == null)
+        {
+            _logger.LogError("transaction info deserialization returned null. response content: {content}", content);
+
+            throw new PaymentServiceException(ExceptionType.GeneralError);
+        }
+
+        return txInfo;
+    }
+
     private async Task<string[]> GetBlockTransactionIds(string blockHash, HttpClient client, CancellationToken cancellationToken)
     {
         string url = $"api/block/{blockHash}/txids";
@@ -48,7 +87,7 @@ public class BlockExplorerService : IBlockExplorerService
 
         if (txids == null)
         {
-            _logger.LogError("transaction deserialization returned null. response content: {content}", content);
+            _logger.LogError("transactionIds deserialization returned null. response content: {content}", content);
 
             throw new PaymentServiceException(ExceptionType.GeneralError);
         }

@@ -48,13 +48,14 @@ public static class PersistenceExtensions
     private static void SeedBlockExplorerMetadata(IBlockExplorerMetadataRepository metadataRepository,
         PaymentServiceSettings settings, ITimeProviderService timeProviderService)
     {
-        int? thresholdBlockIndexMetadataId = metadataRepository.CreateIfNotExists(new BlockExplorerMetadata()
+        int? thresholdBlockIndexMetadataId = metadataRepository.CreateOrUpdateOnlyIf(new BlockExplorerMetadata()
         {
             Key = nameof(BlockExplorerMetadataCode.BlockIndexThreshold),
             Value = settings.DefaultThresholdBlockIndex.ToString(),
             CreateTimestamp = timeProviderService.GetUtcNow,
             UpdateTimestamp = timeProviderService.GetUtcNow,
-        }).Result;
+        },
+        metadata => long.Parse(metadata.Value) < settings.DefaultThresholdBlockIndex).Result;
     }
 
     private static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configs)

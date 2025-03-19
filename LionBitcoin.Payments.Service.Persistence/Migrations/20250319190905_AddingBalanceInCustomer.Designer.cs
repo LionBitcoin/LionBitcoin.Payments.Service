@@ -3,6 +3,7 @@ using System;
 using LionBitcoin.Payments.Service.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LionBitcoin.Payments.Service.Persistence.Migrations
 {
     [DbContext(typeof(PaymentsServiceDbContext))]
-    partial class PaymentsServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250319190905_AddingBalanceInCustomer")]
+    partial class AddingBalanceInCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
