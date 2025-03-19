@@ -1,8 +1,10 @@
+using System.Reflection;
 using LionBitcoin.Payments.Service.Application.Services.Abstractions;
 using LionBitcoin.Payments.Service.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using LionBitcoin.Payments.Service.Common.Misc;
+using LionBitcoin.Payments.Service.Infrastructure.Consumers;
 using LionBitcoin.Payments.Service.Infrastructure.Settings;
 using Npgsql;
 
@@ -37,6 +39,9 @@ public static class InfrastructureExtensions
             services.GetAndConfigure<EventsConfig>("EventsConfig");
 
         string connectionString = GetConnectionString(configuration);
+
+        AddConsumers(services);
+
         services.AddCap(options =>
         {
             options.UsePostgreSql(connectionString);
@@ -54,10 +59,18 @@ public static class InfrastructureExtensions
             options.SucceedMessageExpiredAfter = eventsConfig.SucceedMessageExpiredAfterInSeconds;
             options.FailedMessageExpiredAfter = eventsConfig.FailedMessageExpiredAfterInSeconds;
 
-            options.DefaultGroupName = "LionBitcoin.Payments.Service";
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+            options.DefaultGroupName = currentAssembly.GetName().Name!;
+
+            options.UseDashboard();
         });
 
         return services;
+    }
+
+    private static void AddConsumers(IServiceCollection services)
+    {
+        services.AddTransient<TransactionsConsumer>();
     }
 
     private static string GetConnectionString(IConfiguration configs)

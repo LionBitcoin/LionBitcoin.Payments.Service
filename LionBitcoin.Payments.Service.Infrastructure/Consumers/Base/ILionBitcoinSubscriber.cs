@@ -4,7 +4,8 @@ using MediatR;
 
 namespace LionBitcoin.Payments.Service.Infrastructure.Consumers.Base;
 
-public interface ILionBitcoinSubscriber<in TEvent> : ICapSubscribe, IRequestHandler<TEvent>
+public interface ILionBitcoinSubscriber<in TEvent> : ICapSubscribe
     where TEvent : BaseEvent
 {
+    Task Handle(TEvent @event);
 }

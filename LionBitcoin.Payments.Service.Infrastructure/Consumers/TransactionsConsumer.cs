@@ -1,14 +1,22 @@
 using LionBitcoin.Payments.Service.Application.Domain.Events;
 using LionBitcoin.Payments.Service.Infrastructure.Consumers.Base;
+using MediatR;
 
 namespace LionBitcoin.Payments.Service.Infrastructure.Consumers;
 
 public class TransactionsConsumer : 
     ILionBitcoinSubscriber<BitcoinTransactionOccured>
 {
-    [LionBitcoinSubscriber<BitcoinTransactionOccured>]
-    public async Task Handle(BitcoinTransactionOccured request, CancellationToken cancellationToken = default)
+    private readonly IMediator _mediator;
+
+    public TransactionsConsumer(IMediator mediator)
     {
-        Console.WriteLine(request.OriginalProducer);
+        _mediator = mediator;
+    }
+
+    [LionBitcoinSubscriber<BitcoinTransactionOccured>]
+    public async Task Handle(BitcoinTransactionOccured @event)
+    {
+        await _mediator.Send(@event);
     }
 }

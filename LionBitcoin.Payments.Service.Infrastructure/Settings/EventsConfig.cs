@@ -5,7 +5,8 @@ namespace LionBitcoin.Payments.Service.Infrastructure.Settings;
 public class EventsConfig
 {
     /// <summary>
-    /// The number of message retries.(it will try to publish failed message 'FailedRetryCount' times).
+    /// The number of message retries.(it will try to process failed message 'FailedRetryCount' times.
+    /// This config is for both operations. PUBLISH and RECEIVE fails retries).
     /// the retry will stop when the threshold is reached.
     /// </summary>
     [Required]
