@@ -12,7 +12,9 @@ public static class InfrastructureExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
         services.AddScoped<IBlockExplorerService, BlockExplorerService>();
+
         MempoolSpaceSettings mempoolSettings = services.GetAndConfigure<MempoolSpaceSettings>("MempoolClientSettings.Main");
+
         AddHttpClients(services, mempoolSettings);
 
         return services;

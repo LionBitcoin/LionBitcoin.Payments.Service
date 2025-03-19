@@ -1,4 +1,6 @@
+using System;
 using LionBitcoin.Payments.Service.Application.Domain.Entities;
+using LionBitcoin.Payments.Service.Application.Domain.Enums;
 using LionBitcoin.Payments.Service.Application.Repositories;
 using LionBitcoin.Payments.Service.Application.Repositories.Base;
 using LionBitcoin.Payments.Service.Application.Services.Abstractions;
@@ -52,7 +54,7 @@ public static class PersistenceExtensions
     {
         int? thresholdBlockIndexMetadataId = metadataRepository.CreateIfNotExists(new BlockExplorerMetadata()
         {
-            Key = "BlockIndexThreshold",
+            Key = nameof(BlockExplorerMetadataCode.BlockIndexThreshold),
             Value = settings.DefaultThresholdBlockIndex.ToString(),
             CreateTimestamp = timeProviderService.GetUtcNow,
             UpdateTimestamp = timeProviderService.GetUtcNow,

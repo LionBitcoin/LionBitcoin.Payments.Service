@@ -40,7 +40,7 @@ public class RegisterCustomerCommandHandler : IRequestHandler<RegisterCustomerCo
         GenerateAddressResponse generateAddressResponse = _walletService.GenerateAddress(new GenerateAddressRequest(customerId, AddressType.Receiving));
 
         await UpdateCustomerDepositInfo(customer, generateAddressResponse, cancellationToken);
-        await transaction.Publish(new CustomerCreatedEvent() // TODO: check that isolation level works well, because there was a problem
+        await transaction.Publish(new CustomerCreated()
         {
             OriginalProducer = nameof(RegisterCustomerCommandHandler),
             Customer = customer

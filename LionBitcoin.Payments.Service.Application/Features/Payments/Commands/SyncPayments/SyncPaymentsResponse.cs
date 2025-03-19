@@ -2,5 +2,5 @@ namespace LionBitcoin.Payments.Service.Application.Features.Payments.Commands.Sy
 
 public class SyncPaymentsResponse
 {
-    
+
 }

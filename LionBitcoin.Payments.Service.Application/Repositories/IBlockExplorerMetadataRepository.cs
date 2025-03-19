@@ -10,4 +10,8 @@ public interface IBlockExplorerMetadataRepository : IBaseRepository<BlockExplore
     Task<int?> CreateOrUpdateMetadata(BlockExplorerMetadata metadata, CancellationToken cancellationToken = default);
 
     Task<int?> CreateIfNotExists(BlockExplorerMetadata metadata, CancellationToken cancellationToken = default);
+
+    Task<string?> GetMetadataByKey(string key, CancellationToken cancellationToken = default);
+
+    Task UpdateMetadataByKey(string key, string value, CancellationToken cancellationToken = default);
 }

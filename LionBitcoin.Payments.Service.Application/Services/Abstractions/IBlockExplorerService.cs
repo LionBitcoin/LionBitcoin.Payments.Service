@@ -5,5 +5,5 @@ namespace LionBitcoin.Payments.Service.Application.Services.Abstractions;
 
 public interface IBlockExplorerService
 {
-    Task<string> GetBlockHash(long blockHeight, CancellationToken cancellationToken = default);
+    Task<string[]> GetBlockTransactionsIds(long blockHeight, CancellationToken cancellationToken = default);
 }
