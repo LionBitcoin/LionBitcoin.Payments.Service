@@ -6,13 +6,11 @@ using LionBitcoin.Payments.Service.Application.Services.Abstractions;
 using LionBitcoin.Payments.Service.Application.Shared;
 using LionBitcoin.Payments.Service.Persistence.Repositories;
 using LionBitcoin.Payments.Service.Persistence.Repositories.Base;
-using LionBitcoin.Payments.Service.Persistence.Repositories.Configs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
-using LionBitcoin.Payments.Service.Common.Misc;
 using Microsoft.Extensions.Options;
 
 namespace LionBitcoin.Payments.Service.Persistence;
@@ -25,7 +23,6 @@ public static class PersistenceExtensions
         services.AddScoped<IUnitOfWork, UnitOfWork<PaymentsServiceDbContext>>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IBlockExplorerMetadataRepository, BlockExplorerMetadataRepository>();
-        services.AddCap(configs);
 
         return services;
     }
@@ -77,34 +74,5 @@ public static class PersistenceExtensions
         NpgsqlConnectionStringBuilder connectionStringBuilder = new NpgsqlConnectionStringBuilder();
         configs.GetSection("PaymentsServiceDb").Bind(connectionStringBuilder);
         return connectionStringBuilder.ConnectionString;
-    }
-
-    private static IServiceCollection AddCap(this IServiceCollection services, IConfiguration configuration)
-    {
-        EventsRabbitMqConfig eventsRabbitMqConfig =
-            services.GetAndConfigure<EventsRabbitMqConfig>("EventsRabbitMqSettings");
-        EventsConfig eventsConfig =
-            services.GetAndConfigure<EventsConfig>("EventsConfig");
-
-        string connectionString = GetConnectionString(configuration);
-        services.AddCap(options =>
-        {
-            options.UsePostgreSql(connectionString);
-            options.UseRabbitMQ(rabbitOptions =>
-            {
-                rabbitOptions.HostName = eventsRabbitMqConfig.Host;
-                rabbitOptions.VirtualHost = eventsRabbitMqConfig.VirtualHost;
-                rabbitOptions.Port = eventsRabbitMqConfig.Port;
-                rabbitOptions.UserName = eventsRabbitMqConfig.UserName;
-                rabbitOptions.Password = eventsRabbitMqConfig.Password;
-            });
-
-            options.FailedRetryCount = eventsConfig.FailedRetryCount;
-            options.FailedRetryInterval = eventsConfig.FailedRetryIntervalInSeconds;
-            options.SucceedMessageExpiredAfter = eventsConfig.SucceedMessageExpiredAfterInSeconds;
-            options.FailedMessageExpiredAfter = eventsConfig.FailedMessageExpiredAfterInSeconds;
-        });
-
-        return services;
     }
 }

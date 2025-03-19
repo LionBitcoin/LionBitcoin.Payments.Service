@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace LionBitcoin.Payments.Service.Persistence.Repositories.Configs;
+namespace LionBitcoin.Payments.Service.Infrastructure.Settings;
 
 public class EventsConfig
 {
