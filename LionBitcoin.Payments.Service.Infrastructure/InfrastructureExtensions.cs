@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using LionBitcoin.Payments.Service.Common.Misc;
 using LionBitcoin.Payments.Service.Infrastructure.Consumers;
 using LionBitcoin.Payments.Service.Infrastructure.Settings;
-using Npgsql;
+using LionBitcoin.Payments.Service.Persistence;
 
 namespace LionBitcoin.Payments.Service.Infrastructure;
 
@@ -38,7 +38,7 @@ public static class InfrastructureExtensions
         EventsConfig eventsConfig =
             services.GetAndConfigure<EventsConfig>("EventsConfig");
 
-        string connectionString = GetConnectionString(configuration);
+        string connectionString = PersistenceExtensions.GetConnectionString(configuration);
 
         AddConsumers(services);
 
@@ -71,12 +71,5 @@ public static class InfrastructureExtensions
     private static void AddConsumers(IServiceCollection services)
     {
         services.AddTransient<TransactionsConsumer>();
-    }
-
-    private static string GetConnectionString(IConfiguration configs)
-    {
-        NpgsqlConnectionStringBuilder connectionStringBuilder = new NpgsqlConnectionStringBuilder();
-        configs.GetSection("PaymentsServiceDb").Bind(connectionStringBuilder);
-        return connectionStringBuilder.ConnectionString;
     }
 }

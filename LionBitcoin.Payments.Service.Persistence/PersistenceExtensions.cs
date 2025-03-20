@@ -70,7 +70,7 @@ public static class PersistenceExtensions
         return services;
     }
 
-    private static string GetConnectionString(IConfiguration configs)
+    public static string GetConnectionString(IConfiguration configs)
     {
         NpgsqlConnectionStringBuilder connectionStringBuilder = new NpgsqlConnectionStringBuilder();
         configs.GetSection("PaymentsServiceDb").Bind(connectionStringBuilder);
