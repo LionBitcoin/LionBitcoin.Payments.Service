@@ -11,15 +11,15 @@ using Microsoft.Extensions.Logging;
 
 namespace LionBitcoin.Payments.Service.Application.Features.BitcoinTransactions.Commands.TransactionOccured;
 
-public class BitcoinTransactionOccuredHandler : IRequestHandler<BitcoinTransactionOccured>
+public class BitcoinTransactionOccuredEventHandler : IRequestHandler<BitcoinTransactionOccuredEvent>
 {
-    private readonly ILogger<BitcoinTransactionOccuredHandler> _logger;
+    private readonly ILogger<BitcoinTransactionOccuredEventHandler> _logger;
     private readonly IBlockExplorerService _blockExplorerService;
     private readonly ICustomerRepository _customerRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public BitcoinTransactionOccuredHandler(
-        ILogger<BitcoinTransactionOccuredHandler> logger,
+    public BitcoinTransactionOccuredEventHandler(
+        ILogger<BitcoinTransactionOccuredEventHandler> logger,
         IBlockExplorerService blockExplorerService,
         ICustomerRepository customerRepository,
         IUnitOfWork unitOfWork)
@@ -30,7 +30,7 @@ public class BitcoinTransactionOccuredHandler : IRequestHandler<BitcoinTransacti
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(BitcoinTransactionOccured request, CancellationToken cancellationToken)
+    public async Task Handle(BitcoinTransactionOccuredEvent request, CancellationToken cancellationToken)
     {
         TransactionInfo transactionInfo = 
             await _blockExplorerService.GetTransactionInfo(request.TransactionId, cancellationToken);
@@ -44,7 +44,7 @@ public class BitcoinTransactionOccuredHandler : IRequestHandler<BitcoinTransacti
 
         await transaction.CommitAsync(cancellationToken);
     }
-
+                                                                        
     private async Task TryUpdateCustomersBalance(CancellationToken cancellationToken, Output output)
     {
         Customer? customer = await _customerRepository.GetCustomerByDepositAddress(output.Address, cancellationToken);

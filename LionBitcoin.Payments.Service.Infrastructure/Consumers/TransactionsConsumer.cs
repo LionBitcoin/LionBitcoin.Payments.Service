@@ -5,7 +5,7 @@ using MediatR;
 namespace LionBitcoin.Payments.Service.Infrastructure.Consumers;
 
 public class TransactionsConsumer : 
-    ILionBitcoinSubscriber<BitcoinTransactionOccured>
+    ILionBitcoinSubscriber<BitcoinTransactionOccuredEvent>
 {
     private readonly IMediator _mediator;
 
@@ -14,8 +14,8 @@ public class TransactionsConsumer :
         _mediator = mediator;
     }
 
-    [LionBitcoinSubscriber<BitcoinTransactionOccured>]
-    public async Task Handle(BitcoinTransactionOccured @event)
+    [LionBitcoinSubscriber<BitcoinTransactionOccuredEvent>]
+    public async Task Handle(BitcoinTransactionOccuredEvent @event)
     {
         await _mediator.Send(@event);
     }

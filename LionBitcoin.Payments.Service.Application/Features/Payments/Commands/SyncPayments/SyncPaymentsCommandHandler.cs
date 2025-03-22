@@ -58,7 +58,7 @@ public class SyncPaymentsCommandHandler : IRequestHandler<SyncPaymentsCommand, S
     {
         foreach (string transactionId in transactionIds)
         {
-            await transaction.Publish(new BitcoinTransactionOccured()
+            await transaction.Publish(new BitcoinTransactionOccuredEvent()
             {
                 OriginalProducer = nameof(SyncPaymentsCommandHandler),
                 TransactionId = transactionId,
